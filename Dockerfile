@@ -1,7 +1,11 @@
 # BUILD STAGE
-FROM golang:1.15-alpine AS builder
+FROM golang:1.16-alpine AS builder
 WORKDIR /workspace
 COPY ./ ./
+ENV GO111MODULE "on"
+ENV GOPROXY "https://goproxy.cn"
+RUN go env -w GO111MODULE=on 
+RUN go env -w GOPROXY=https://goproxy.cn,direct 
 
 RUN go get -d -v ./...
 
